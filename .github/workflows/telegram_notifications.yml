@@ -25,4 +25,3 @@ jobs:
           от ${{ github.actor }}
           Ссылка ${{ github.ref }}
           Ревьюверы: ${{ github.pull_request_rewviewers }}
-          github var ${{ github }}
