@@ -5,7 +5,7 @@ name: Black Code Formatter
 on:
   pull_request:
     branches: [ master ]
-    types: [ready_for_review, review_requested]
+    types: [opened, synchronize]
 # A workflow run is made up of one or more jobs that can run sequentially or in parallel
 jobs:
   # This workflow contains a single job called "build"
