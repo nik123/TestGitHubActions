@@ -14,4 +14,4 @@ jobs:
     runs-on: ubuntu-latest
     steps:
     - name: check PR with Black formatter
-      uses: appleboy/telegram-action@master
+      uses: lgeiger/black-action@master
