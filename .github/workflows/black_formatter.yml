@@ -15,4 +15,3 @@ jobs:
     steps:
     - name: check PR with Black formatter
       uses: appleboy/telegram-action@master
-      args: ". --check"
