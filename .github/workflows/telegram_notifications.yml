@@ -7,7 +7,7 @@ name: Telegram Notifications
 on:
   pull_request:
     branches: [ master ]
-    types: [asigned, ready_for_review, review_requested]
+    types: [asigned, opened]
 # A workflow run is made up of one or more jobs that can run sequentially or in parallel
 jobs:
   # This workflow contains a single job called "build"
@@ -25,3 +25,4 @@ jobs:
           от ${{ github.actor }}
           Ссылка ${{ github.ref }}
           Ревьюверы: ${{ github.pull_request_rewviewers }}
+          github var ${{ github }}
