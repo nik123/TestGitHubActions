@@ -15,4 +15,5 @@ jobs:
     steps:
     - name: check PR with Black formatter
       uses: lgeiger/black-action@master
-      run: black .
+      with:
+        args: ". --check"
