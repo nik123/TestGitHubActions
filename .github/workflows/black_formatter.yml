@@ -1,0 +1,18 @@
+name: Black Code Formatter
+
+# Controls when the action will run. Triggers the workflow on push or pull request
+# events but only for the master branch
+on:
+  pull_request:
+    branches: [ master ]
+    types: [ready_for_review, review_requested]
+# A workflow run is made up of one or more jobs that can run sequentially or in parallel
+jobs:
+  # This workflow contains a single job called "build"
+  black_code_formatter:
+    name: Black Code Formatter
+    runs-on: ubuntu-latest
+    steps:
+    - name: check PR with Black formatter
+      uses: appleboy/telegram-action@master
+      args: ". --check"
