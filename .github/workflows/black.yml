@@ -15,6 +15,6 @@ jobs:
         #   base_branch: {{ $github.base_ref }}
         run: |
           pip install black
-          filelist=$(git diff --name-only --diff-filter=d master | grep -e="*.py$")
+          filelist=$(git diff --name-only --diff-filter=d origin/master | grep -e="*.py$")
           echo "$filelist"
           black "$filelist"
