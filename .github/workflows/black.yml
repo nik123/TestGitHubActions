@@ -17,4 +17,4 @@ jobs:
           pip install black
           filelist=$(git diff --name-only --diff-filter=d origin/master | grep -e="*.py$")
           echo "$filelist"
-          black "$filelist"
+          black --check --diff -- "$filelist"
