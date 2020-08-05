@@ -13,5 +13,4 @@ jobs:
         #   base_branch: {{ $github.base_ref }}
         run: |
           pip install black
-          git diff --name-only --diff-filter=d master | xargs -d '\n' black
-      - uses: psf/black@b59a5246577346e6da2cc2802015f08524abf545
+          git diff --name-only --diff-filter=d master -- . | xargs -d '\n' black
