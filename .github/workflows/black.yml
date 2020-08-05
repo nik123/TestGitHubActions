@@ -1,6 +1,6 @@
 name: Black
 
-on: [push, pull_request]
+on: [pull_request]
 
 jobs:
   lint:
@@ -8,10 +8,9 @@ jobs:
     steps:
       - uses: actions/checkout@v2
       - uses: actions/setup-python@v2
-      - uses: psf/black@b59a5246577346e6da2cc2802015f08524abf545
       - name: "check_black"
-        # env:
-        #  base_branch: {{ $github.base_ref }}
+        env:
+          base_branch: {{ $github.base_ref }}
         run: |
           pip install black
-          git diff --name-only --diff-filter=d $base_branch | xargs -d '\n' black 
+          git diff --name-only --diff-filter=d $base_branch | xargs -d '\n' black
