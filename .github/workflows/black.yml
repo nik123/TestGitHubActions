@@ -14,3 +14,4 @@ jobs:
         run: |
           pip install black
           git diff --name-only --diff-filter=d $base_branch | xargs -d '\n' black
+      - uses: psf/black@b59a5246577346e6da2cc2802015f08524abf545
