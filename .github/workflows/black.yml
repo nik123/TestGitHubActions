@@ -8,13 +8,13 @@ jobs:
     steps:
       - uses: actions/checkout@v2
         with:
-          fetch-depth: 2
+          fetch-depth: 0
       - uses: actions/setup-python@v2
       - name: "check_black"
         # env:
         #   base_branch: {{ $github.base_ref }}
         run: |
           pip install black
-          filelist=$(git diff --name-only --diff-filter=d HEAD^ | grep -e="*.py$")
+          filelist=$(git diff --name-only --diff-filter=d master | grep -e="*.py$")
           echo "$filelist"
           black "$filelist"
