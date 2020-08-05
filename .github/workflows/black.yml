@@ -15,4 +15,6 @@ jobs:
         #   base_branch: {{ $github.base_ref }}
         run: |
           pip install black
-          git diff --name-only --diff-filter=d HEAD^ | xargs -d '\n' black
+          filelist=$(git diff --name-only --diff-filter=d HEAD^ | grep -e="*.py$")
+          echo "$filelist"
+          black "$filelist"
