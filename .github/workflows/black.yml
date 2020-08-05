@@ -7,10 +7,12 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
+        with:
+          fetch-depth: 2
       - uses: actions/setup-python@v2
       - name: "check_black"
         # env:
         #   base_branch: {{ $github.base_ref }}
         run: |
           pip install black
-          git diff --name-only --diff-filter=d master -- . | xargs -d '\n' black
+          git diff --name-only --diff-filter=d HEAD^ | xargs -d '\n' black
