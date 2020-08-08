@@ -11,12 +11,9 @@ jobs:
           fetch-depth: 0
       - uses: actions/setup-python@v2
       - name: "check_black"
-        # env:
-        #   base_branch: {{ $github.base_ref }}
         run: |
           pip install black
           base_ref=origin/${{ github.base_ref }}
-          echo $base_ref
-          filelist=$(git diff --name-only --diff-filter=d origin/master | grep -e="*.py$")
+          filelist=$(git diff --name-only --diff-filter=d $base_ref | grep -e="*.py$")
           echo "$filelist"
           black --check --diff -- "$filelist"
