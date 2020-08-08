@@ -6,4 +6,4 @@ def very_important_function(
 ):
     """Applies `variables` to the `template` and writes to `file`."""
     with open(file, "w") as f:
-        print("Hello, world!!!", file=f)
+        print("Hello, world!",          file=f)
