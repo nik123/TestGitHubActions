@@ -7,11 +7,14 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
+        with:
+          fetch-depth: 0
       - uses: actions/setup-python@v2
       - name: "check_black"
         # env:
-        #   base_branch: {{ $github.base_ref }}
+        #  base_branch: {{ $github.base_ref }}
         run: |
           pip install black
-          git diff --name-only --diff-filter=d master | xargs -d '\n' black
-      - uses: psf/black@b59a5246577346e6da2cc2802015f08524abf545
+          filelist=$(git diff --name-only --diff-filter=d origin/master | grep -e="*.py$")
+          echo "$filelist"
+          black --check --diff -- "$filelist"
