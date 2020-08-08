@@ -12,7 +12,7 @@ jobs:
       - uses: actions/setup-python@v2
       - name: "check_black"
         env:
-         base_branch: {{ $github.base_ref }}
+          base_branch: {{ $github.base_ref }}
         run: |
           pip install black
           filelist=$(git diff --name-only --diff-filter=d $base_branch | grep -e="*.py$")
