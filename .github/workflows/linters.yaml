@@ -10,7 +10,7 @@ jobs:
         with:
           fetch-depth: 0
       - uses: actions/setup-python@v2
-      - uses: "get_python_filelist"
+      - name: "python_filelist"
         # Get new and modified Python files:
         run: |
           base_ref=origin/${{ github.base_ref }}
