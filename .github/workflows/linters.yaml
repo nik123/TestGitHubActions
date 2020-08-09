@@ -26,8 +26,8 @@ jobs:
             echo "New and modified Python files: $filelist"
             echo "step 6"
             echo "::set-env name=filelist::$filelist"
-        fi
-        echo "finished"
+          fi
+          echo "finished"
       - name: "black"
         run: |
           if [ -z "$filelist" ]; then
