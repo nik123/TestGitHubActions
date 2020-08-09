@@ -10,18 +10,30 @@ jobs:
         with:
           fetch-depth: 0
       - uses: actions/setup-python@v2
+      - name: "python_filelist"
+        # Get new and modified Python files:
+        run: |
+          base_ref=origin/${{ github.base_ref }}
+          filelist=$(git diff --name-only --diff-filter=d $base_ref | grep -e="*.py$")
+          if [ -z "$filelist" ]; then
+            echo "No modified Python files detected."
+          else
+            echo "New and modified Python files: $filelist"
+            echo "::set-env name=filelist::$filelist"
+          fi
       - name: "black"
         run: |
-          filelist=$(git diff --name-only --diff-filter=d $base_ref | grep -e="*.py$")
-          if [[ -n "$filelist" ]]; then
-            pip install black
-            black --check --diff -- "$filelist"
+          if [ -z "$filelist" ]; then
+            exit
           fi
+          pip install black
+          black --check --diff -- "$filelist"
       - name: "flake8"
         run: |
-          filelist=$(git diff --name-only --diff-filter=d $base_ref | grep -e="*.py$")
-          if [[ -n "$filelist" ]]; then
-            pip install flake8
-            flake8 --count --select=E9,F63,F7,F82 --show-source --statistics -- "$filelist"
+          if [ -z "$filelist" ]; then
+            exit
           fi
+
+          pip install flake8
+          flake8 --count --select=E9,F63,F7,F82 --show-source --statistics -- "$filelist"
 
