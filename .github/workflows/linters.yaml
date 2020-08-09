@@ -1,0 +1,28 @@
+name: Black
+
+on: pull_request
+
+jobs:
+  lint:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+        with:
+          fetch-depth: 0
+      - uses: actions/setup-python@v2
+      - uses: "get_python_filelist"
+        # Get new and modified Python files:
+        run: |
+          base_ref=origin/${{ github.base_ref }}
+          filelist=$(git diff --name-only --diff-filter=d $base_ref | grep -e="*.py$")
+          echo "New and modified files: $filelist"
+      - name: "black"
+        run: |
+          pip install black
+          black --check --diff -- "$filelist"
+      - name: "flake8"
+        run: |
+          pip install flake8
+          # stop the build if there are Python syntax errors or undefined names
+          flake8 --count --select=E9,F63,F7,F82 --show-source --statistics -- "$filelist"
+
