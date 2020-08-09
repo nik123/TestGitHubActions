@@ -13,14 +13,21 @@ jobs:
       - name: "python_filelist"
         # Get new and modified Python files:
         run: |
+          echo "step 1"
           base_ref=origin/${{ github.base_ref }}
+          echo "step 2"
           filelist=$(git diff --name-only --diff-filter=d $base_ref | grep -e="*.py$")
+          echo "step 3"
           if [ -z "$filelist" ]; then
+            echo "step 4"
             echo "No modified Python files"
           else
+            echo "step 5"
             echo "New and modified Python files: $filelist"
+            echo "step 6"
             echo "::set-env name=filelist::$filelist"
-          fi
+        fi
+        echo "finished"
       - name: "black"
         run: |
           if [ -z "$filelist" ]; then
