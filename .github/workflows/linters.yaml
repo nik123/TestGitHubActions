@@ -1,4 +1,4 @@
-name: Black
+name: Python Linters
 
 on: pull_request
 
