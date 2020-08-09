@@ -19,7 +19,7 @@ jobs:
           filelist=$(git diff --name-only --diff-filter=d $base_ref)
           echo "$filelist"
           echo "step 2.2"
-          echo "$filelist" | grep -e="*.py$"
+          echo "$filelist" | grep py
           echo "step 2.3"
           filelist=$(echo "$filelist" | grep -e="*.py$")
           echo "step 3"
