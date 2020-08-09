@@ -13,6 +13,8 @@ jobs:
       - name: "python_filelist"
         # Get new and modified Python files:
         run: |
+          echo "step 0"
+          echo "hello" | grep "hello"
           echo "step 1"
           base_ref=origin/${{ github.base_ref }}
           echo "step 2.1"
