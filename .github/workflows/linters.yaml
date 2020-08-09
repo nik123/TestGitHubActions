@@ -15,7 +15,9 @@ jobs:
         run: |
           echo "step 0"
           # echo "hello" | grep "bye"
-          git diff --name-only --diff-filter=d origin/master -- "*.py"
+          $filelist=$(git diff --name-only --diff-filter=d origin/master -- "*.py")
+          echho "step 0.1"
+          echo "$filelist"
           echo "step 1"
           base_ref=origin/${{ github.base_ref }}
           echo "step 2.1"
