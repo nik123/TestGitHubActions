@@ -13,7 +13,7 @@ jobs:
       - name: "python_filelist"
         # Get new and modified Python files:
         run: |
-          base_ref=origin/${{ github.base_ref }}
+          base_ref="origin/${{ github.base_ref }}"
           filelist=$(git diff --name-only --diff-filter=d $base_ref | grep -e="*.py$")
           if [ -z "$filelist" ]; then
             echo "No modified Python files detected."
