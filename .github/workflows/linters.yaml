@@ -15,8 +15,11 @@ jobs:
         run: |
           echo "step 1"
           base_ref=origin/${{ github.base_ref }}
-          echo "step 2"
-          filelist=$(git diff --name-only --diff-filter=d $base_ref | grep -e="*.py$")
+          echo "step 2.1"
+          filelist=$(git diff --name-only --diff-filter=d $base_ref)
+          echo "$filelist"
+          echo "step 2.2"
+          filelist=$(echo "$filelist" | grep -e="*.py$")
           echo "step 3"
           if [ -z "$filelist" ]; then
             echo "step 4"
