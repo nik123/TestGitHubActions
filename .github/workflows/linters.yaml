@@ -16,6 +16,7 @@ jobs:
           base_ref=origin/${{ github.base_ref }}
           filelist=$(git diff --name-only --diff-filter=d $base_ref | grep -e="*.py$")
           echo "New and modified files: $filelist"
+          echo "::set-env name=filelist::$filelist"
       - name: "black"
         run: |
           pip install black
