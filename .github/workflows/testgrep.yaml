@@ -3,12 +3,13 @@ name: Test Grep
 on: pull_request
 
 jobs:
-  runs-on: ubuntu-latest
-  steps:
-    - uses: actions/checkout@v2
-    - name: "grep matching pattern"
-      run: |
-        echo "foo" | grep "foo"
-    - name: "grep not matching pattern"
-      run: |
-        echo "foo" | grep "bar"
+  testgrep:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - name: "grep matching pattern"
+        run: |
+          echo "foo" | grep "foo"
+      - name: "grep not matching pattern"
+        run: |
+          echo "foo" | grep "bar"
