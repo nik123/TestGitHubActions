@@ -7,6 +7,5 @@ def very_important_function(
     template: str, file: os.PathLike, debug: bool = False,
 ):
     """Applies `variables` to the `template` and writes to `file`."""
-    a = b
     with open(file, "w") as f:
         print("Hello, world!!!", file=f)
