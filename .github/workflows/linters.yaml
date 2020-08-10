@@ -13,45 +13,16 @@ jobs:
       - name: "python_filelist"
         # Get new and modified Python files:
         run: |
-          echo "step 0"
-          # echo "hello" | grep "bye"
-          $filelist=$(git diff --name-only --diff-filter=d origin/master -- "*.py")
-          echho "step 0.1"
-          echo "$filelist"
-          echo "step 1"
           base_ref=origin/${{ github.base_ref }}
-          echo "step 2.1"
-          filelist=$(git diff --name-only --diff-filter=d $base_ref)
-          echo "$filelist"
-          echo "step 2.2"
-          echo "$filelist" | grep "py"
-          echo "step 2.3"
-          filelist=$(echo "$filelist" | grep -e="*.py$")
-          echo "step 3"
-          if [ -z "$filelist" ]; then
-            echo "step 4"
-            echo "No modified Python files"
-          else
-            echo "step 5"
-            echo "New and modified Python files: $filelist"
-            echo "step 6"
-            echo "::set-env name=filelist::$filelist"
-          fi
-          echo "finished"
+          filelist=$(git diff --name-only --diff-filter=d $base_ref | grep -e="*.py$")
+          echo "New and modified files: $filelist"
+          echo "::set-env name=filelist::$filelist"
       - name: "black"
         run: |
-          if [ -z "$filelist" ]; then
-            exit
-          fi
-
           pip install black
           black --check --diff -- "$filelist"
       - name: "flake8"
         run: |
-          if [ -z "$filelist" ]; then
-            exit
-          fi
-
           pip install flake8
           # stop the build if there are Python syntax errors or undefined names
           flake8 --count --select=E9,F63,F7,F82 --show-source --statistics -- "$filelist"
