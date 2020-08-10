@@ -19,10 +19,16 @@ jobs:
           echo "::set-env name=filelist::$filelist"
       - name: "black"
         run: |
+          if [ -z "$filelist" ]; then
+            exit
+          fi
           pip install black
           black --check --diff -- "$filelist"
       - name: "flake8"
         run: |
+          if [ -z "$filelist" ]; then
+            exit
+          fi
           pip install flake8
           # stop the build if there are Python syntax errors or undefined names
           flake8 --count --select=E9,F63,F7,F82 --show-source --statistics -- "$filelist"
