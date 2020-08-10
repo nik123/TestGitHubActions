@@ -1,6 +1,7 @@
 import os
 
 x = {"a": 37, "b": 42, "c": 927}
+x2 = {"a": 37, "b": 42, "c": 927}
 
 
 def very_important_function(
