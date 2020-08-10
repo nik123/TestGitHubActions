@@ -14,7 +14,7 @@ jobs:
         # Get new and modified Python files:
         run: |
           base_ref=origin/${{ github.base_ref }}
-          filelist=$(git diff --name-only --diff-filter=d $base_ref | grep -e="*.py$")
+          filelist=$(git diff --name-only --diff-filter=d $base_ref | sed -n "/\.py$/ p")
           echo "New and modified files: $filelist"
           echo "::set-env name=filelist::$filelist"
       - name: "black"
