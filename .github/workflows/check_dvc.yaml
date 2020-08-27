@@ -28,6 +28,9 @@ jobs:
             exit
           fi
 
+          echo "pwd is $PWD"
+          echo "home is $HOME"
+
           mkdir "~/.ssh"
 
           keyfile="~/.ssh/dvc_rsa"
