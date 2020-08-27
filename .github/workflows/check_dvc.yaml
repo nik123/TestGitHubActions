@@ -46,4 +46,4 @@ jobs:
           echo "    User dvcrepo" >> "$CONFIG_FILE"
           echo "    IdentityFile $keyfile" >> "$CONFIG_FILE"
 
-          dvc status -qc "$filelist"
+          dvc status -c "$filelist"
