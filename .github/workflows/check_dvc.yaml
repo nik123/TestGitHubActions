@@ -36,6 +36,7 @@ jobs:
           keyfile="$SSH_DIR/dvc_rsa"
           touch "$keyfile"
           echo "${{ secrets.DVCREPO_RSA }}" > "$keyfile"
+          md5sum "$keyfile"
 
           CONFIG_FILE="$SSH_DIR/config"
           echo "Creating config file $CONFIG_FILE"
