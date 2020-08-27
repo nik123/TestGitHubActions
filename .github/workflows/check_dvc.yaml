@@ -1,0 +1,45 @@
+name: Check DVC
+
+on: pull_request
+
+jobs:
+  dvcchecker:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+        with:
+          fetch-depth: 0
+      - uses: actions/setup-python@v2
+      - name: "dvc_filelist"
+        # Get new and modified DVC files:
+        run: |
+          base_ref=origin/${{ github.base_ref }}
+          filelist=$(git diff --name-only --diff-filter=d $base_ref | sed -n "/\.dvc$/ p")
+          echo "New and modified DVC files: $filelist"
+          echo "::set-env name=filelist::$filelist"
+      - name: "install dvc"
+        run: |
+          pip install dvc[all]
+      - name: "check dvc data"
+        # Check if DVC data is pushed to remote
+        run: |
+          if [ -z "$filelist" ]; then
+            echo "There are no changed DVC files"
+            exit
+          fi
+
+          mkdir "~/.ssh"
+
+          keyfile="~/.ssh/dvc_rsa"
+          touch "$keyfile"
+          echo "${{ secrets.DVCREPO_RSA }}" > "$keyfile"
+
+          config="~/.ssh/config"
+          touch "$config_file"
+          cat "Host 104.248.41.64 > "$config"
+          # define any custom port you want:
+          # cat "    Port custom_port" >> "$config"
+          cat "    User dvcrepo" >> "$config"
+          cat "    IdentityFile $keyfile" >> "$config"
+
+          dvc status -qc "$filelist"
