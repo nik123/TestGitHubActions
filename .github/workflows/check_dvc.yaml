@@ -28,21 +28,22 @@ jobs:
             exit
           fi
 
-          echo "pwd is $PWD"
-          echo "home is $HOME"
+          SSH_DIR="$HOME/.ssh"
 
-          mkdir "~/.ssh"
+          echo "Creating dir $SSH_DIR..."
+          mkdir "$SSH_DIR"
 
-          keyfile="~/.ssh/dvc_rsa"
+          keyfile="$SSH_DIR/dvc_rsa"
           touch "$keyfile"
           echo "${{ secrets.DVCREPO_RSA }}" > "$keyfile"
 
-          config="~/.ssh/config"
-          touch "$config_file"
-          cat "Host 104.248.41.64 > "$config"
+          CONFIG_FILE="$SSH_DIR/config"
+          echo "Creating config file $CONFIG_FILE"
+          touch "$CONFIG_FILE"
+          cat "Host 104.248.41.64 > "$CONFIG_FILE"
           # define any custom port you want:
-          # cat "    Port custom_port" >> "$config"
-          cat "    User dvcrepo" >> "$config"
-          cat "    IdentityFile $keyfile" >> "$config"
+          # cat "    Port custom_port" >> "$CONFIG_FILE"
+          cat "    User dvcrepo" >> "$CONFIG_FILE"
+          cat "    IdentityFile $keyfile" >> "$CONFIG_FILE"
 
           dvc status -qc "$filelist"
