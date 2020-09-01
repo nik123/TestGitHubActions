@@ -47,4 +47,8 @@ jobs:
           echo "    User dvcrepo" >> "$CONFIG_FILE"
           echo "    IdentityFile $keyfile" >> "$CONFIG_FILE"
 
-          dvc status -c "$filelist"
+          if ! dvc status -qc "$filelist"; then
+            # Run status again to show outdated data:
+            dvc status -c
+            exit 1
+          fi
