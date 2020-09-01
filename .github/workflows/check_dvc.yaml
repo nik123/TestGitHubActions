@@ -49,6 +49,7 @@ jobs:
 
           if ! dvc status -qc "$filelist"; then
             # Run status again to show outdated data:
+            echo "Failed to obtain dvc status:"
             dvc status -c
             exit 1
           fi
