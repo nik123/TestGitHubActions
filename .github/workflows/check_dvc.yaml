@@ -36,20 +36,21 @@ jobs:
           keyfile="$SSH_DIR/dvc_rsa"
           touch "$keyfile"
           echo "${{ secrets.DVCREPO_RSA }}" > "$keyfile"
+          # Keep md5sum in logs te ensure key is correct:
           md5sum "$keyfile"
 
           CONFIG_FILE="$SSH_DIR/config"
           echo "Creating config file $CONFIG_FILE"
           touch "$CONFIG_FILE"
-          echo "Host 104.248.41.64" > "$CONFIG_FILE"
+          echo "Host 206.189.188.13" > "$CONFIG_FILE"
           # define any custom port you want:
           # echo "    Port custom_port" >> "$CONFIG_FILE"
           echo "    User dvcrepo" >> "$CONFIG_FILE"
           echo "    IdentityFile $keyfile" >> "$CONFIG_FILE"
 
-          if ! dvc status -qc "$filelist"; then
-            # Run status again to show outdated data:
-            echo "Failed to obtain dvc status:"
-            dvc status -c
+          missing=$(dvc status --cloud --show-json "$filelist" | python -c 'import sys; import json; missing = {k: v for k, v in json.load(sys.stdin).items() if v == "deleted"}; print(json.dumps(missing, ensure_ascii=False, indent=4) if missing else "")')
+          if [[ -n "$missing" ]]; then
+            echo "Not all dvc files synced with remote:"
+            echo "$missing"
             exit 1
           fi
