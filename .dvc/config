@@ -1,4 +1,4 @@
 ['remote "origin"']
-    url = ssh://dvcrepo@104.248.41.64/home/dvcrepo/dvcremote
+    url = ssh://dvcrepo@206.189.188.13/home/dvcrepo/dvcremote
 [core]
     remote = origin
