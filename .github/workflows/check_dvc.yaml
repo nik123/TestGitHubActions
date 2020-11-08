@@ -48,7 +48,8 @@ jobs:
           echo "    User dvcrepo" >> "$CONFIG_FILE"
           echo "    IdentityFile $keyfile" >> "$CONFIG_FILE"
 
-          missing=$(dvc status --cloud --show-json "$filelist" | python -c 'import sys; import json; missing = {k: v for k, v in json.load(sys.stdin).items() if v == "deleted"}; print(json.dumps(missing, ensure_ascii=False, indent=4) if missing else "")')
+          dvc_status=$(dvc status --cloud --show-json "$filelist")
+          missing=$(echo "$dvc_status" | python -c 'import sys; import json; missing = {k: v for k, v in json.load(sys.stdin).items() if v == "deleted"}; print(json.dumps(missing, ensure_ascii=False, indent=4) if missing else "")')
           if [[ -n "$missing" ]]; then
             echo "Not all dvc files synced with remote:"
             echo "$missing"
