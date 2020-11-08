@@ -49,6 +49,9 @@ jobs:
           echo "    IdentityFile $keyfile" >> "$CONFIG_FILE"
 
           dvc_status=$(dvc status --cloud --show-json "$filelist")
+          # Log dvc status:
+          echo "$dvc_status"
+          # Filter 'missing' files, i.e. files not pushed to remote:
           missing=$(echo "$dvc_status" | python -c 'import sys; import json; missing = {k: v for k, v in json.load(sys.stdin).items() if v == "missing"}; print(json.dumps(missing, ensure_ascii=False, indent=4) if missing else "")')
           if [[ -n "$missing" ]]; then
             echo "Not all dvc files synced with remote:"
