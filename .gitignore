@@ -128,3 +128,6 @@ dmypy.json
 # Pyre type checker
 .pyre/
 /foo.txt
+
+# Keys for GH Actions
+/keys
