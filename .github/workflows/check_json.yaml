@@ -24,7 +24,7 @@ jobs:
         run: |
           filelist="$(echo "$JSON_FILELIST" | sed -e "s/\(.*\)/'\1'/")"
           echo "$filelist"
-          for f in $filelist
+          for f in "$filelist"
           do
             echo "Validating JSON syntax at \"$f\"..."
             jq -e . > /dev/null <<< "$(cat "$f")"
