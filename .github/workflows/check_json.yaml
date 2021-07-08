@@ -22,7 +22,7 @@ jobs:
           echo "EOF" >> $GITHUB_ENV
       - name: jq
         run: |
-          for f in $JSON_FILELIST
+          for f in "$JSON_FILELIST"
           do
             test -f "$f"
             echo "Validating JSON syntax at \"$f\"..."
