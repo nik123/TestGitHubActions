@@ -24,7 +24,6 @@ jobs:
         run: |
           for f in "$JSON_FILELIST"
           do
-            test -f "$f"
             echo "Validating JSON syntax at \"$f\"..."
             jq -e . > /dev/null <<< "$(cat "$f")"
             echo "\"$f\" is valid JSON file."
