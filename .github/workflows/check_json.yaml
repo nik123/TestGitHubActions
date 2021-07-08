@@ -1,0 +1,31 @@
+---
+name: Check JSON syntax
+
+on: pull_request
+
+jobs:
+  check_json:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+        with:
+          fetch-depth: 0
+      - name: "json_filelist"
+        # Get new and modified Python files:
+        run: |
+          base_ref=origin/${{ github.base_ref }}
+          filelist=$(git diff --name-only --diff-filter=d $base_ref | sed -n "/\.json$/I p")
+          echo "New and modified json files: "
+          echo "$filelist"
+          echo "JSON_FILELIST<<EOF" >> $GITHUB_ENV
+          echo "$filelist" >> $GITHUB_ENV
+          echo "EOF" >> $GITHUB_ENV
+      - name: jq
+        run: |
+          for f in "{$JSON_FILELIST[@]}"
+          do
+            [ -f "$f" ]
+            echo "Validating JSON syntax at \"$f\"..."
+            jq -e . > /dev/null <<< "$(cat "$f")"
+            echo "\"$f\" is valid JSON file."
+          done
