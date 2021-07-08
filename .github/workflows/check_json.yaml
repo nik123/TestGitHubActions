@@ -20,6 +20,12 @@ jobs:
           echo "JSON_FILELIST<<EOF" >> $GITHUB_ENV
           echo "$filelist" >> $GITHUB_ENV
           echo "EOF" >> $GITHUB_ENV
+      - name: tmp
+        run: |
+          # Python files are separated by newline characters
+          Replace newlines with spaces so we can use them as parameter
+          filelist=$(echo $JSON_FILELIST | tr '\n' ' ')
+          echo "$filelist"
       - name: jq
         run: |
           for f in "{$JSON_FILELIST[@]}"
