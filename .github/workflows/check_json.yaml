@@ -22,7 +22,7 @@ jobs:
           echo "EOF" >> $GITHUB_ENV
       - name: jq
         run: |
-          filelist=$(echo "$JSON_FILELIST" | sed -n "s/\(.*\)/'\1'/")
+          filelist="$(echo "$JSON_FILELIST" | sed -n "s/\(.*\)/'\1'/")"
           echo "$filelist"
           for f in $filelist
           do
