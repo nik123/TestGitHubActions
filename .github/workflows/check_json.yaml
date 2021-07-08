@@ -22,8 +22,8 @@ jobs:
           echo "EOF" >> $GITHUB_ENV
       - name: jq
         run: |
-          filelist="$(echo "$JSON_FILELIST" | sed -e "s/\(.*\)/'\1'/")"
-          echo "$filelist"
+          # json filenames may contain spaces
+          # Make newline only separator
           IFS=$'\n' 
           for f in $JSON_FILELIST
           do
