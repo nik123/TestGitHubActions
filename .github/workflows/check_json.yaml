@@ -23,7 +23,7 @@ jobs:
       - name: tmp
         run: |
           # Python files are separated by newline characters
-          Replace newlines with spaces so we can use them as parameter
+          # Replace newlines with spaces so we can use them as parameter
           filelist=$(echo $JSON_FILELIST | tr '\n' ' ')
           echo "$filelist"
       - name: jq
