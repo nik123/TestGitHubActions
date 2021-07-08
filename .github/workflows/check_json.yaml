@@ -22,7 +22,9 @@ jobs:
           echo "EOF" >> $GITHUB_ENV
       - name: jq
         run: |
-          for f in "$JSON_FILELIST"
+          filelist=$(echo "$JSON_FILELIST" | sed -n "s/(.*\)/'\1'/")
+          echo "$filelist"
+          for f in $filelist
           do
             echo "Validating JSON syntax at \"$f\"..."
             jq -e . > /dev/null <<< "$(cat "$f")"
