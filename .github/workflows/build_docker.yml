@@ -20,7 +20,7 @@ jobs:
         id: meta
         uses: docker/metadata-action@v4
         with:
-          images: "nkodenko/ods-acd-tg-bot:latest"
+          images: nkodenko/ods-acd-tg-bot
           tags:
             type=raw,value=latest,enable=true
           # flavor: |
