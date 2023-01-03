@@ -1,0 +1,17 @@
+# https://t.me/AppelateCourtsBot
+tg_api_token: "5654867197:AAFzr1eAA8GB10UyTIyaxOt02gl-rwQM0c8"
+# https://t.me/predict_decision_bot
+# tg_api_token: "5428872871:AAG1WYORZweBf-jmHjk0NEr8kuuTN1ojWWM"
+court_required_words:
+    - "РЕШЕНИЕ"
+    - "Решение"
+    - "Р Е Ш Е Н И Е"
+    - "Именем Российской Федерации"
+    - "именем Российской Федерации"
+    - "ИМЕНЕМ РОССИЙСКОЙ ФЕДЕРАЦИИ"
+    - "УСТАНОВИЛ"
+    - "У С Т А Н О В И Л"
+    - "РЕШИЛ"
+    - "Р Е Ш И Л"
+predictor_api_url: "http://localhost:8080"
+#predictor_api_url: "http://predictor:8080"
