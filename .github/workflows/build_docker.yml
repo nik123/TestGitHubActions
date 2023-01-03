@@ -20,12 +20,13 @@ jobs:
         id: meta
         uses: docker/metadata-action@v4
         with:
-          images: nkodenko/ods-acd-tg-bot
+          images: "nkodenko/ods-acd-tg-bot:latest"
+          flavor: |
+            latest=true
       - name: Build and push Docker image
         uses: docker/build-push-action@v2
         with:
           context: serverapp/tg-bot
           push: true
-          # push: false
           tags: ${{ steps.meta.outputs.tags }}
           labels: ${{ steps.meta.outputs.labels }}
