@@ -1,0 +1,44 @@
+name: Post URL to issue tracker when PR is opened
+
+on:
+  pull_request:
+    types: [opened]
+
+jobs:
+  comment:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v4
+
+    - name: Post a comment on the PR
+      uses: actions/github-script@v7
+      with:
+        script: |
+          const prNumber = context.payload.pull_request.number;
+          const branchName = context.payload.pull_request.head.ref;
+
+          // Extract the issue ID using a regex pattern
+          const issueMatch = branchName.match(/_DEV-\d+$/);
+
+          if (!issueMatch) {
+            // If issue ID is not found, exit the script
+            console.log(`Branch name "${branchName}" does not contain a valid issue ID.`);
+            return;
+          }
+
+          const issueID = issueMatch[0].substring(1); // Remove the leading underscore
+          const issueURL = `https://my-issue-tracker.com/${issueID}`;
+
+          const commentBody = `Thank you for your pull request! We will review it shortly. The issue for this PR is [${issueID}](${issueURL}).`;
+
+          // Post the comment on the PR
+          await github.rest.issues.createComment({
+            owner: context.repo.owner,
+            repo: context.repo.repo,
+            issue_number: prNumber,
+            body: commentBody,
+          });
+
+
