@@ -13,3 +13,7 @@ jobs:
         environment-file: conda-env.yml
         # python-version: 3.10
         auto-activate-base: false
+    - name: Check environment
+      run: |
+        conda info
+        conda env list
