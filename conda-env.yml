@@ -1,0 +1,7 @@
+name: my-conda-env
+channels:
+  - defaults
+dependencies:
+  - python=3.10
+  - pip:
+    - numpy==1.26.3
